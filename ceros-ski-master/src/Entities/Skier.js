@@ -113,13 +113,14 @@ export class Skier extends Entity {
             this.assetName = Constants.SKIER_DIRECTION_ASSET[jumpStyle];
             setTimeout(() => {
                 this.updateAsset();
-                this.score += 20;
+                this.score += 200;
                 this.jumpInProgress = false;
             }, 1000);
         }
     }
 
     checkIfSkierHitObstacle(obstacleManager, assetManager) {
+        if (!this.alive) {return;}
         let ramp = false;
         let rock = false;
         const asset = assetManager.getAsset(this.assetName);
@@ -145,7 +146,7 @@ export class Skier extends Entity {
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
         if (collision && rock && this.jumpInProgress) {
-            this.score += 100;
+            this.score += 1000;
             this.checkIfJumpActivated(7);
         } else if (collision && !ramp) {
             this.setDirection(Constants.SKIER_DIRECTIONS.CRASH);

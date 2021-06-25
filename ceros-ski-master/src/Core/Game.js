@@ -15,7 +15,7 @@ export class Game {
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.skier = new Skier(0, 0);
         this.rhino;
-        this.rhinoArrive = 20;
+        this.rhinoArrive = 4;
         this.time = 0;
         this.obstacleManager = new ObstacleManager();
         this.currentGame;
@@ -42,10 +42,8 @@ export class Game {
 
     run() {
         this.canvas.clearCanvas();
-
         this.updateGameWindow();
         this.drawGameWindow();
-
         this.currentGame = requestAnimationFrame(this.run.bind(this));
     }
 
@@ -66,19 +64,18 @@ export class Game {
         this.skier.checkIfSkierHitObstacle(this.obstacleManager, this.assetManager);
 
         if (this.rhino && this.rhino.hasEatenSkier) {
-            this.canvas.ctx.font = "56px Arial";
-            this.canvas.ctx.fillStyle = "red";
-            this.canvas.ctx.fillText(" Game Over - Score: "+ this.skier.score, 100, 100);
             setTimeout(() => {
                 cancelAnimationFrame(this.currentGame);
-                this.canvas = new Canvas(0,0);
+                this.endGame();
             }, 1000);
         }
     }
 
     drawGameWindow() {
         this.canvas.setDrawOffset(this.gameWindow.left, this.gameWindow.top);
-        this.skier.draw(this.canvas, this.assetManager);
+        if (this.skier.alive) {
+            this.skier.draw(this.canvas, this.assetManager);
+        }
         if (this.rhino) {
             this.rhino.draw(this.canvas, this.assetManager);
         }
@@ -91,6 +88,20 @@ export class Game {
         const top = skierPosition.y - (Constants.GAME_HEIGHT / 1.5);
 
         this.gameWindow = new Rect(left, top, left + Constants.GAME_WIDTH, top + Constants.GAME_HEIGHT);
+    }
+
+    endGame() {
+        const highScore = localStorage.getItem('skiHighScore');
+        this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT/2)
+        this.canvas.ctx.font = "56px Arial";
+        if (highScore && parseInt(highScore, 10) > this.skier.score) {
+            this.canvas.ctx.fillStyle = "red";
+            this.canvas.ctx.fillText(" Game Over! Score: "+ this.skier.score, 100, 100);
+        } else {
+            this.canvas.ctx.fillStyle = "limegreen";
+            this.canvas.ctx.fillText(" Game Over! New High Score! : "+ this.skier.score, 100, 100);
+            localStorage.setItem('skiHighScore', this.skier.score);
+        }
     }
 
     handleKeyDown(event) {

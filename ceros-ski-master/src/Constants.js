@@ -18,7 +18,7 @@ export const JUMP_THREE = 'jump3';
 export const JUMP_FOUR = 'jump4';
 export const JUMP_FIVE = 'jump5';
 export const RUN_LEFT = 'rhinoRunLeft';
-export const RUN_RIGHT = 'rhinoRunLeft2';
+export const RUN_RIGHT = 'rhinoRunRight';
 export const LIFT = 'rhinoLift';
 export const LIFT_MOUTH_OPEN = 'rhinoLiftMouthOpen';
 export const LIFT_EAT_1 = 'rhinoLiftEat';
@@ -70,7 +70,15 @@ export const SKIER_DIRECTIONS = {
 };
 
 export const RHINO_DIRECTIONS = {
-RUN_LEFT: 8
+RUN_LEFT: 8,
+RUN_RIGHT: 9,
+LIFT: 10,
+LIFT_MOUTH_OPEN: 11,
+LIFT_EAT_1: 12,
+LIFT_EAT_2: 13,
+LIFT_EAT_3: 14,
+LIFT_EAT_4: 15,
+DEFAULT: 16
 };
 
 export const SKIER_DIRECTION_ASSET = {

@@ -19,7 +19,6 @@ export class Rhino extends Entity {
     }
 
     huntSkier(skier, assetManager) {
-        console.log(skier.direction);
         let runLeft = false;
         let skierPosition = skier.getPosition();
         let animate = setInterval(() => {
@@ -55,11 +54,12 @@ export class Rhino extends Entity {
             }
         }, 100);
     }  
+
     skierCaught(skier) {
+        skier.alive = false;
         this.speed = 0;
         skier.assetName = Constants.SKIER_CRASH;
         skier.speed = 0;
-        skier.alive = false;
         this.x = skier.x;
         this.y = skier.y;
         this.eatSkier();
@@ -84,33 +84,15 @@ export class Rhino extends Entity {
     }
 
     eatSkier() {
-        setTimeout(() => {
-            this.assetName = Constants.RUN_LEFT;
+        let eatFrame = 8;
+        let eat = setInterval(() => {
+            this.assetName = Constants.RHINO_DIRECTION_ASSET[eatFrame];
+            eatFrame ++;
+            if (eatFrame > 15) {
+                this.hasEatenSkier = true;
+                clearInterval(eat);
+            }
         }, 500);
-        setTimeout(() => {
-            this.assetName = Constants.RUN_RIGHT;
-        }, 1000);
-        setTimeout(() => {
-            this.assetName = Constants.LIFT;
-        }, 1500);
-        setTimeout(() => {
-            this.assetName = Constants.LIFT_MOUTH_OPEN;
-        }, 2500);
-        setTimeout(() => {
-            this.assetName = Constants.LIFT_EAT_1;
-        }, 3500);
-        setTimeout(() => {
-            this.assetName = Constants.LIFT_EAT_2;
-        }, 4000);
-        setTimeout(() => {
-            this.assetName = Constants.LIFT_EAT_3;
-        }, 4500);
-        setTimeout(() => {
-            this.assetName = Constants.DEFAULT;
-        }, 5000);
-        setTimeout(() => {
-            this.hasEatenSkier = true;
-        }, 5500);
     }
 
     updateAsset() {
