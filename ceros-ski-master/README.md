@@ -98,3 +98,44 @@ how creative candidates get with this.
 * Write more unit tests for your code
 
 We are looking forward to see what you come up with!
+
+# updates
+
+## bug fixes
+
+* The skier can now move left after suffering a collision.
+Skier.direction will not be set to -1 when current direction is 0.
+
+* Check added for ganeWindow !== null before calling calculateGameWindow. This was previosuly crashing the app sporadically by passing a null value.
+
+## unit tests
+
+* Added some tests for Skier and a test file for Rhino. I only had time to add a couple of simple test for each, more tests would be helpful for end of game scenario particularly.
+
+## Extend existing functionality
+
+* Jump ramps added, along with ability for skier to jump: player must hit the space key immediately before skier goes over a ramp to perform a jump.
+* Making a jumo over a rock obstacle creates a trick jump.
+* Trees cannot be jumped over.
+
+
+## new features
+
+* The Rhino appeara after 30 seconds and chases the skier, using the running assets
+  provided to animate the rhino. Upon catching the skier, the skier gets eaten and it's game over.
+
+## bonus
+
+* Added scoring: Points system added. Points are scored by completing jumps, with higher points awarded for jumping over rocks.
+* Start button added to launch game.
+* Highest score achieved is saved locally for player in local storage.
+* Game over screen added which displays player's score, plus whether or not they have beaten the high score.
+* Deployed to AWS and can be played here: https://master.d1l6faxritxg9k.amplifyapp.com/
+
+
+
+
+
+
+
+
