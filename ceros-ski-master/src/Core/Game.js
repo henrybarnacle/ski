@@ -15,7 +15,7 @@ export class Game {
         this.canvas = new Canvas(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         this.skier = new Skier(0, 0);
         this.rhino;
-        this.rhinoArrive = 4;
+        this.rhinoArrive = 30;
         this.time = 0;
         this.obstacleManager = new ObstacleManager();
         this.currentGame;
